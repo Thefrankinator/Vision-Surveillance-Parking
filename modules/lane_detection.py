@@ -1,16 +1,3 @@
-# Module 1 — Détection des voies
-# Source : TP5
-#
-# Pipeline :
-#   Image entrée
-#   → Niveaux de gris         (cv2.cvtColor)
-#   → Flou gaussien           (cv2.GaussianBlur)
-#   → Détection contours      (cv2.Canny)
-#   → Masque ROI trapèze      (cv2.fillPoly + cv2.bitwise_and)
-#   → Hough probabiliste      (cv2.HoughLinesP)
-#   → Séparation gauche/droite (signe de la pente)
-#   → Moyennage des segments  → une ligne gauche + une ligne droite
-#   → Dessin sur l'image      (cv2.line)
 
 import cv2
 import numpy as np
@@ -97,7 +84,7 @@ def detect_lanes(image_path: str) -> np.ndarray:
         if ligne is not None:
             cv2.line(img_result, (ligne[0], ligne[1]), (ligne[2], ligne[3]), color, 8)
 
-    return img_roi
+    return img_result
 
 
 if __name__ == "__main__":

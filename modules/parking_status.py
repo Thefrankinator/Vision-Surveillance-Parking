@@ -1,18 +1,3 @@
-# Module 3 — État des places de parking
-# Source : TP7
-#
-# Pipeline :
-#   Image parking (vue de dessus)
-#   → Niveaux de gris              (cv2.cvtColor)
-#   → Flou gaussien                (cv2.GaussianBlur)
-#   → Binarisation adaptative      (cv2.adaptiveThreshold)
-#   → Pour chaque place (ROI) :
-#       → Découper la zone         (image[y:y+h, x:x+w])
-#       → Compter les pixels blancs (cv2.countNonZero)
-#       → count < seuil → LIBRE
-#       → count >= seuil → OCCUPÉE
-#   → Dessiner rectangles verts/rouges
-#   → Afficher compteur total libre / occupé
 
 import cv2
 import numpy as np
@@ -120,7 +105,7 @@ if __name__ == "__main__":
     # puis choisir un threshold entre les valeurs vides et les valeurs occupées.
     #calibrate("data/parking/lots_empty.jpg", spots)
 
-    img, free, occupied = check_parking("data/parking/lots.jpg", spots, threshold=41    )
+    img, free, occupied = check_parking("data/parking/lots.jpg", spots, threshold=43.5   )
     print(f"Places libres: {free}, Places occupées: {occupied}")
     cv2.imshow("Parking Status", img)
     cv2.waitKey(0)

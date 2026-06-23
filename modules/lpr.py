@@ -1,17 +1,3 @@
-# Module 2 — Reconnaissance de plaque (LPR)
-# Source : TP6
-#
-# Pipeline :
-#   Image voiture
-#   → Niveaux de gris              (cv2.cvtColor)
-#   → Détection des contours       (cv2.Canny)
-#   → Trouver tous les contours    (cv2.findContours)
-#   → Trier par aire (top 10)      (sorted + cv2.contourArea)
-#   → Chercher un rectangle        (cv2.approxPolyDP, len == 4)
-#   → Extraire la ROI plaque       (découpage dans l'image originale)
-#   → Prétraitement OCR            (GaussianBlur + threshold)
-#   → OCR Tesseract                (pytesseract.image_to_string)
-#   → Retourner le texte lu
 
 import cv2
 import numpy as np
@@ -38,7 +24,7 @@ def read_plate(image_path: str, blacklist: list[str] | None = None) -> tuple[str
 
     plate_text = ""
 
-    # TODO: implémenter le pipeline TP6
+   
     # 1. Convertir en niveaux de gris
     img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
     
@@ -61,7 +47,6 @@ def read_plate(image_path: str, blacklist: list[str] | None = None) -> tuple[str
     for c in contours:
         epsilon = 0.04 * cv2.arcLength(c, True)
         approx = cv2.approxPolyDP(c, epsilon, True)
-        print(f"aire={cv2.contourArea(c):.0f}  points={len(approx)}")
     
     # 5. Extraire la ROI de la plaque
     if plate_contour is not None:
@@ -98,7 +83,7 @@ def read_plate(image_path: str, blacklist: list[str] | None = None) -> tuple[str
 if __name__ == "__main__":
     
     # Exemple d'utilisation
-    plaque, img_annotée = read_plate("data/parking/cars_5.png", blacklist=["ALR466"])
+    plaque, img_annotée = read_plate("data/parking/cars_2.png", blacklist=["ALR466"])
     print(f"Plaque détectée : {plaque}")
     cv2.imshow("Plaque annotée", img_annotée)
     cv2.waitKey(0)
